@@ -1,5 +1,7 @@
 package com.alvezs.investmentaggregator.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,12 +26,15 @@ public class Account {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
-    @OneToOne(mappedBy = "account")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
     @PrimaryKeyJoinColumn
+    @JsonManagedReference
     private BillingAddress billingAddress;
 
     @OneToMany(mappedBy = "account")
+    @JsonManagedReference
     private List<AccountStock> accountStocks;
 }

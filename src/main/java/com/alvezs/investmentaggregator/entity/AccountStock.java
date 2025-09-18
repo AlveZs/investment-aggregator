@@ -1,5 +1,6 @@
 package com.alvezs.investmentaggregator.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,10 +22,12 @@ public class AccountStock {
     @ManyToOne
     @MapsId("accountId")
     @JoinColumn(name = "account_id")
+    @JsonBackReference
     private Account account;
 
     @ManyToOne
     @MapsId("stockId")
     @JoinColumn(name = "stock_id")
+    @JsonBackReference
     private Stock stock;
 }
