@@ -2,15 +2,11 @@ package com.alvezs.investmentaggregator.entity;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
 @Embeddable
 public class AccountStockId {

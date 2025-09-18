@@ -3,9 +3,7 @@ package com.alvezs.investmentaggregator.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,10 +11,8 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
