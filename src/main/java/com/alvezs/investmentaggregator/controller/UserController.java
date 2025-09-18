@@ -1,7 +1,9 @@
 package com.alvezs.investmentaggregator.controller;
 
+import com.alvezs.investmentaggregator.dto.CreateAccountDTO;
 import com.alvezs.investmentaggregator.dto.CreateUserDTO;
 import com.alvezs.investmentaggregator.dto.UpdateUserDTO;
+import com.alvezs.investmentaggregator.entity.Account;
 import com.alvezs.investmentaggregator.entity.User;
 import com.alvezs.investmentaggregator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +60,15 @@ public class UserController {
     public ResponseEntity<Void> deleteById(@PathVariable("userId") String userId) {
         userService.deleteById(userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{userId}/accounts")
+    public ResponseEntity<Account> deleteById(
+            @PathVariable("userId") String userId,
+            @RequestBody CreateAccountDTO createAccountDTO
+    ) {
+        var createdAccount = userService.createAccount(userId, createAccountDTO);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
     }
 }
