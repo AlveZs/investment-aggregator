@@ -1,5 +1,6 @@
 package com.alvezs.investmentaggregator.controller;
 
+import com.alvezs.investmentaggregator.dto.AccountResponseDTO;
 import com.alvezs.investmentaggregator.dto.CreateAccountDTO;
 import com.alvezs.investmentaggregator.dto.CreateUserDTO;
 import com.alvezs.investmentaggregator.dto.UpdateUserDTO;
@@ -23,6 +24,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody CreateUserDTO createUserDTO) {
         var createdUser = userService.createUser(createUserDTO);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
@@ -63,12 +65,21 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/accounts")
-    public ResponseEntity<Account> deleteById(
+    public ResponseEntity<Account> createAccount(
             @PathVariable("userId") String userId,
             @RequestBody CreateAccountDTO createAccountDTO
     ) {
         var createdAccount = userService.createAccount(userId, createAccountDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
+    }
+
+    @GetMapping("/{userId}/accounts")
+    public ResponseEntity<List<AccountResponseDTO>> getAccountsByUserId(
+            @PathVariable("userId") String userId
+    ) {
+        var accounts = userService.listAccounts(userId);
+
+        return ResponseEntity.ok(accounts);
     }
 }

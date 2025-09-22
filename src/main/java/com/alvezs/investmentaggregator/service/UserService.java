@@ -1,5 +1,6 @@
 package com.alvezs.investmentaggregator.service;
 
+import com.alvezs.investmentaggregator.dto.AccountResponseDTO;
 import com.alvezs.investmentaggregator.dto.CreateAccountDTO;
 import com.alvezs.investmentaggregator.dto.CreateUserDTO;
 import com.alvezs.investmentaggregator.dto.UpdateUserDTO;
@@ -114,5 +115,18 @@ public class UserService {
         accountCreated.setBillingAddress(billingAddress);
 
         return accountCreated;
+    }
+
+    public List<AccountResponseDTO> listAccounts(String userId) {
+        var user = userRepository.findById(UUID.fromString(userId))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return user.getAccounts()
+                .stream()
+                .map(account -> new AccountResponseDTO(
+                                account.getAccountId(),
+                                account.getDescription()
+                        )
+                ).toList();
     }
 }
